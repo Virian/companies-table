@@ -1,0 +1,42 @@
+{
+  "env": {
+    "es6": true,
+    "browser": true,
+    "jest/globals": true
+  },
+  "extends": [
+    "airbnb-base",
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:jest/all",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:jsx-a11y/recommended",
+    "plugin:flowtype/recommended"
+  ],
+  "plugins": [
+    "react",
+    "react-hooks",
+    "jest",
+    "flowtype",
+    "import",
+    "jsx-a11y"
+  ],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaVersion": 2018,
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "rules": {
+    "linebreak-style": ["error", "windows"],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn"
+  }
+}
