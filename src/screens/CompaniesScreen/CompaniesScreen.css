@@ -1,0 +1,15 @@
+.CompaniesScreen {
+  padding: 40px 80px;
+}
+
+@media only screen and (max-width: 800px) {
+  .CompaniesScreen {
+    padding: 20px 40px;
+  }
+}
+
+@media only screen and (max-width: 520px) {
+  .CompaniesScreen {
+    padding: 0;
+  }
+}

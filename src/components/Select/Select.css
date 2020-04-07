@@ -1,0 +1,26 @@
+.SelectWrapper {
+  position: relative;
+}
+
+.Select {
+  min-width: 20px;
+  padding: 6px 28px 6px 12px;
+  border: 1px solid #888;
+  border-radius: 4px;
+  cursor: pointer;
+  user-select: none;
+  appearance: none;
+}
+
+.Select:hover {
+  border-color: #333;
+}
+
+.SelectArrow {
+  position: absolute;
+  top: calc(50% - 12px);
+  right: 4px;
+  font-size: 24px;
+  color: rgba(0, 0, 0, 0.54);
+  pointer-events: none;
+}

@@ -1,0 +1,16 @@
+.TablePagination {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.TablePaginationPageDetails {
+  margin: 0 10px;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.TablePaginationSelect {
+  margin-right: 10px;
+}
