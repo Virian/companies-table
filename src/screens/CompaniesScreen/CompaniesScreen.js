@@ -1,48 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import axios from 'axios';
 
 import './CompaniesScreen.css';
+import columns from './columns';
 import Table from '../../components/Table';
 import TablePagination from '../../components/Table/TablePagination';
-
-const columns = [
-  {
-    label: 'ID',
-    prop: 'id',
-    key: 'column-id',
-  },
-  {
-    label: 'Name',
-    prop: 'name',
-    key: 'column-name',
-  },
-  {
-    label: 'City',
-    prop: 'city',
-    key: 'column-city',
-  },
-  {
-    label: 'Total income',
-    prop: 'totalIncome',
-    key: 'column-total-income',
-    align: 'right',
-  },
-  {
-    label: 'Average income',
-    prop: 'averageIncome',
-    key: 'column-average-income',
-    align: 'right',
-  },
-  {
-    label: 'Last month income',
-    prop: 'lastMonthIncome',
-    key: 'column-last-month-income',
-    align: 'right',
-  },
-];
+import quickSortBy from '../../utils/quickSortBy';
 
 const CompaniesScreen = () => {
   const [companies, setCompanies] = useState([]);
+  const [orderBy, setOrderBy] = useState(null);
+  const [orderDirection, setOrderDirection] = useState('asc');
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(10);
 
@@ -83,18 +51,33 @@ const CompaniesScreen = () => {
     getCompaniesData();
   }, []);
 
-  const visibleCompanies = companies.slice(page * pageSize, page * pageSize + pageSize);
+  const sortedCompanies = useMemo(() => {
+    if (orderBy && orderDirection) {
+      return quickSortBy(companies, orderBy, orderDirection);
+    }
+    return companies;
+  }, [companies, orderBy, orderDirection]);
+
+  const visibleCompanies = sortedCompanies.slice(page * pageSize, page * pageSize + pageSize);
 
   const handleChangePageSize = (event) => {
     setPageSize(parseInt(event.target.value, 10));
     setPage(0);
-  }
+  };
+
+  const handleChangeOrder = (prop) => {
+    setOrderDirection(orderBy === prop && orderDirection === 'asc' ? 'desc' : 'asc');
+    setOrderBy(prop);
+  };
 
   return (
     <div className="CompaniesScreen">
       <Table
         data={visibleCompanies}
         columns={columns}
+        orderBy={orderBy}
+        orderDirection={orderDirection}
+        onChangeOrder={handleChangeOrder}
       />
       <TablePagination
         total={companies.length}

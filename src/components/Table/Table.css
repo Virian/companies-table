@@ -30,6 +30,29 @@
   border-bottom: 2px solid #ccc;
 }
 
+.TableHeadCellContent {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.TableHeadCellContent:not(.TableHeadCellContent-active):hover {
+  color: #777;
+}
+
+.TableHeadCellContent:not(.TableHeadCellContent-active):hover .TableHeadCellContentIcon {
+  visibility: visible;
+}
+
+.TableHeadCellContent-active .TableHeadCellContentIcon {
+  visibility: visible;
+}
+
+.TableHeadCellContentIcon {
+  visibility: hidden;
+}
+
 .TableCell-left {
   text-align: left;
 }

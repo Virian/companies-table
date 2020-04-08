@@ -9,21 +9,19 @@ const Select = ({
   value,
   onChange,
   children,
-}) => {
-  return (
-    <div className={classNames('SelectWrapper', className)}>
-      <select
-        value={value}
-        className="Select"
-        onChange={onChange}
-        onBlur={onChange}
-      >
-        {children}
-      </select>
-      <i className="material-icons SelectArrow">expand_more</i>
-    </div>
-  );
-};
+}) => (
+  <div className={classNames('SelectWrapper', className)}>
+    <select
+      value={value}
+      className="Select"
+      onChange={onChange}
+      onBlur={onChange}
+    >
+      {children}
+    </select>
+    <i className="material-icons SelectArrow">expand_more</i>
+  </div>
+);
 
 Select.propTypes = {
   className: PropTypes.string,
