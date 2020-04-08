@@ -1,14 +1,25 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, {
+  useEffect,
+  useState,
+  useMemo,
+} from 'react';
 import axios from 'axios';
 
 import './CompaniesScreen.css';
 import columns from './columns';
+import filterableKeys from './filterableKeys';
+import TextField from '../../components/TextField';
 import Table from '../../components/Table';
 import TablePagination from '../../components/Table/TablePagination';
 import quickSortBy from '../../utils/quickSortBy';
+import filterBy from '../../utils/filterBy';
+import useDebounce from '../../hooks/useDebounce';
 
 const CompaniesScreen = () => {
   const [companies, setCompanies] = useState([]);
+  const [search, setSearch] = useState('');
+  const debouncedSearch = useDebounce(search, 400);
+
   const [orderBy, setOrderBy] = useState(null);
   const [orderDirection, setOrderDirection] = useState('asc');
   const [page, setPage] = useState(0);
@@ -51,14 +62,25 @@ const CompaniesScreen = () => {
     getCompaniesData();
   }, []);
 
-  const sortedCompanies = useMemo(() => {
-    if (orderBy && orderDirection) {
-      return quickSortBy(companies, orderBy, orderDirection);
+  const filteredCompanies = useMemo(() => {
+    if (debouncedSearch) {
+      return filterBy(companies, debouncedSearch, filterableKeys);
     }
     return companies;
-  }, [companies, orderBy, orderDirection]);
+  }, [companies, debouncedSearch]);
+
+  const sortedCompanies = useMemo(() => {
+    if (orderBy && orderDirection) {
+      return quickSortBy(filteredCompanies, orderBy, orderDirection);
+    }
+    return filteredCompanies;
+  }, [filteredCompanies, orderBy, orderDirection]);
 
   const visibleCompanies = sortedCompanies.slice(page * pageSize, page * pageSize + pageSize);
+
+  const handleChangeSearch = (event) => {
+    setSearch(event.target.value);
+  };
 
   const handleChangePageSize = (event) => {
     setPageSize(parseInt(event.target.value, 10));
@@ -72,6 +94,12 @@ const CompaniesScreen = () => {
 
   return (
     <div className="CompaniesScreen">
+      <TextField
+        className="CompaniesScreenSearch"
+        placeholder="Szukaj..."
+        value={search}
+        onChange={handleChangeSearch}
+      />
       <Table
         data={visibleCompanies}
         columns={columns}
@@ -80,7 +108,7 @@ const CompaniesScreen = () => {
         onChangeOrder={handleChangeOrder}
       />
       <TablePagination
-        total={companies.length}
+        total={sortedCompanies.length}
         page={page}
         pageSize={pageSize}
         onChangePage={setPage}

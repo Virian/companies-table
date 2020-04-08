@@ -1,5 +1,12 @@
 .CompaniesScreen {
+  display: flex;
+  flex-direction: column;
   padding: 40px 80px;
+}
+
+.CompaniesScreenSearch {
+  align-self: flex-end;
+  margin-bottom: 10px;
 }
 
 @media only screen and (max-width: 800px) {
@@ -11,5 +18,9 @@
 @media only screen and (max-width: 520px) {
   .CompaniesScreen {
     padding: 0;
+  }
+
+  .CompaniesScreenSearch {
+    width: 100%;
   }
 }

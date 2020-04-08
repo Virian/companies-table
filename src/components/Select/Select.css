@@ -7,6 +7,7 @@
   padding: 6px 28px 6px 12px;
   border: 1px solid #888;
   border-radius: 4px;
+  outline: 0;
   cursor: pointer;
   user-select: none;
   appearance: none;
@@ -14,6 +15,10 @@
 
 .Select:hover {
   border-color: #333;
+}
+
+.Select:focus {
+  border-color: #3486eb;
 }
 
 .SelectArrow {

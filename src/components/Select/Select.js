@@ -9,6 +9,7 @@ const Select = ({
   value,
   onChange,
   children,
+  ...rest
 }) => (
   <div className={classNames('SelectWrapper', className)}>
     <select
@@ -16,6 +17,7 @@ const Select = ({
       className="Select"
       onChange={onChange}
       onBlur={onChange}
+      {...rest}
     >
       {children}
     </select>

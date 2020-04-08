@@ -12,6 +12,7 @@
 
 .IconButton.IconButton-disabled {
   cursor: auto;
+  pointer-events: none;
 }
 
 .IconButton:not(.IconButton-disabled):hover {
