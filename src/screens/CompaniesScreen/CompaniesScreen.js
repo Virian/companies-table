@@ -3,17 +3,20 @@ import React, {
   useState,
   useMemo,
 } from 'react';
-import axios from 'axios';
 
 import './CompaniesScreen.css';
 import columns from './columns';
 import filterableKeys from './filterableKeys';
+import getSumAndLastDate from './getSumAndLastDate';
+import getLastMonthIncome from './getLastMonthIncome';
 import TextField from '../../components/TextField';
 import Table from '../../components/Table';
 import TablePagination from '../../components/Table/TablePagination';
 import quickSortBy from '../../utils/quickSortBy';
 import filterBy from '../../utils/filterBy';
 import useDebounce from '../../hooks/useDebounce';
+import getAllCompanies from '../../api/companies/getAll';
+import getIncomeById from '../../api/incomes/getById';
 
 const CompaniesScreen = () => {
   const [companies, setCompanies] = useState([]);
@@ -27,26 +30,12 @@ const CompaniesScreen = () => {
 
   useEffect(() => {
     const getCompaniesData = async () => {
-      let { data } = await axios.get('https://recruitment.hal.skygate.io/companies');
+      let { data } = await getAllCompanies();
       data = await Promise.all(data.map(async ({ id, ...rest }) => {
-        const { data: { incomes } } = await axios.get(`https://recruitment.hal.skygate.io/incomes/${id}`);
-
-        const { sum, lastDate } = incomes.reduce((accumulator, { value, date }) => {
-          const incomeDate = new Date(date);
-          return {
-            sum: accumulator.sum + parseFloat(value),
-            lastDate: incomeDate > accumulator.lastDate ? incomeDate : accumulator.lastDate,
-          };
-        }, { sum: 0, lastDate: null });
-
+        const { data: { incomes } } = await getIncomeById(id);
+        const { sum, lastDate } = getSumAndLastDate(incomes);
         const averageIncome = (sum / incomes.length) || 0;
-
-        const lastMonthIncome = incomes.reduce((accumulator, { value, date }) => {
-          const incomeDate = new Date(date);
-          const isFromLastMonth = incomeDate.getMonth() === lastDate.getMonth()
-            && incomeDate.getFullYear() === lastDate.getFullYear();
-          return isFromLastMonth ? accumulator + parseFloat(value) : accumulator;
-        }, 0);
+        const lastMonthIncome = getLastMonthIncome(incomes, lastDate);
 
         return {
           ...rest,
