@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import './Table.css';
+import './Table.scss';
 import formatCellContent from './formatCellContent';
 
 const Table = ({

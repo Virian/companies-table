@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import './TablePagination.css';
+import './TablePagination.scss';
 import IconButton from '../../IconButton';
 import Select from '../../Select';
 

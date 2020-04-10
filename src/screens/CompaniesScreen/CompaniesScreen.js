@@ -4,7 +4,7 @@ import React, {
   useMemo,
 } from 'react';
 
-import './CompaniesScreen.css';
+import './CompaniesScreen.scss';
 import columns from './columns';
 import filterableKeys from './filterableKeys';
 import getSumAndLastDate from './getSumAndLastDate';

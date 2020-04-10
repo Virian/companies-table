@@ -1,0 +1,30 @@
+@import 'styles/colors';
+
+.IconButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  border: 0;
+  border-radius: 50%;
+  background-color: transparent;
+  transition: 0.2s background-color;
+  cursor: pointer;
+
+  &.IconButton-disabled {
+    cursor: auto;
+    pointer-events: none;
+  }
+
+  &.IconButton-disabled .IconButtonIcon {
+    color: $icon--disabled;
+  }
+  
+  &:not(&-disabled):hover {
+    background-color: $icon-background--hovered;
+  }
+}
+
+.IconButtonIcon {
+  color: $icon;
+}

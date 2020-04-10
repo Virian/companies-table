@@ -1,7 +1,9 @@
+@import 'styles/colors';
+
 .TableWrapper {
   max-height: 770px;
   border-radius: 5px;
-  background-color: #fff;
+  background-color: $table-background;
   box-shadow: 0px 2px 1px -1px rgba(0,0,0,0.2),
     0px 1px 1px 0px rgba(0,0,0,0.14),
     0px 1px 3px 0px rgba(0,0,0,0.12);
@@ -17,17 +19,29 @@
 
 .TableCell {
   padding: 15px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid $table-border;
+
+  &-left {
+    text-align: left;
+  }
+
+  &-center {
+    text-align: center;
+  }
+  
+  &-right {
+    text-align: right;
+  }
 }
 
 .TableHeadCell {
   position: sticky;
   top: 0;
   left: 0;
-  background-color: #fff;
+  background-color: $table-background;
   text-align: left;
   font-weight: 700;
-  border-bottom: 2px solid #ccc;
+  border-bottom: 2px solid $table-border;
 }
 
 .TableHeadCellContent {
@@ -35,46 +49,34 @@
   align-items: center;
   vertical-align: middle;
   cursor: pointer;
-}
 
-.TableHeadCellContent:not(.TableHeadCellContent-active):hover {
-  color: #777;
-}
-
-.TableHeadCellContent:not(.TableHeadCellContent-active):hover .TableHeadCellContentIcon {
-  visibility: visible;
-}
-
-.TableHeadCellContent-active .TableHeadCellContentIcon {
-  visibility: visible;
+  &:not(&-active):hover {
+    color: #777;
+  }
+  
+  &:not(&-active):hover .TableHeadCellContentIcon {
+    visibility: visible;
+  }
+  
+  &-active .TableHeadCellContentIcon {
+    visibility: visible;
+  }
 }
 
 .TableHeadCellContentIcon {
   visibility: hidden;
 }
 
-.TableCell-left {
-  text-align: left;
-}
-
-.TableCell-center {
-  text-align: center;
-}
-
-.TableCell-right {
-  text-align: right;
-}
-
 .TableRow {
   transition: 0.5s background-color cubic-bezier(0.215, 0.610, 0.355, 1);
-}
 
-.TableRow:hover {
-  background-color: #eee;
-}
+  &:hover {
+    background-color: #eee;
+  }
 
-.TableRow + .TableRow {
-  border-top: 1px solid #ccc;
+  + & {
+    border-top: 1px solid $table-border;
+  }
 }
 
 @media only screen and (max-width: 520px) {

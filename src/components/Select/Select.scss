@@ -1,3 +1,5 @@
+@import 'styles/colors';
+
 .SelectWrapper {
   position: relative;
 }
@@ -5,20 +7,20 @@
 .Select {
   min-width: 20px;
   padding: 6px 28px 6px 12px;
-  border: 1px solid #888;
+  border: 1px solid $field-border;
   border-radius: 4px;
   outline: 0;
   cursor: pointer;
   user-select: none;
   appearance: none;
-}
 
-.Select:hover {
-  border-color: #333;
-}
+  &:hover {
+    border-color: $field-border--hovered;
+  }
 
-.Select:focus {
-  border-color: #3486eb;
+  &:focus {
+    border-color: $field-border--focused;
+  }
 }
 
 .SelectArrow {
@@ -26,6 +28,6 @@
   top: calc(50% - 12px);
   right: 4px;
   font-size: 24px;
-  color: rgba(0, 0, 0, 0.54);
+  color: $icon;
   pointer-events: none;
 }
