@@ -85,7 +85,7 @@ const CompaniesScreen = () => {
     <div className="CompaniesScreen">
       <TextField
         className="CompaniesScreenSearch"
-        placeholder="Szukaj..."
+        placeholder="Search..."
         value={search}
         onChange={handleChangeSearch}
       />

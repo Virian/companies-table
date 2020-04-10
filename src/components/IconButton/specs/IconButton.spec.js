@@ -15,7 +15,7 @@ describe('icon button', () => {
   });
 
   it('does not fire on click function when button is disabled', () => {
-    expect.assertions(2);
+    expect.assertions(3);
 
     const onClick = jest.fn();
     const { getByTestId } = render(
@@ -32,6 +32,7 @@ describe('icon button', () => {
     userEvent.click(icon);
 
     expect(icon).toBeDisabled();
+    expect(icon).toHaveClass('IconButton-disabled');
     expect(onClick).toHaveBeenCalledTimes(0);
   });
 });

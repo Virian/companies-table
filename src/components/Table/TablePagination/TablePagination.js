@@ -21,7 +21,7 @@ const TablePagination = ({
     <div className="TablePagination">
       <div className="TablePaginationPageSize">
         <span className="TablePaginationPageDetails">
-          Rozmiar strony:
+          Page size:
         </span>
         <Select
           className="TablePaginationSelect"
