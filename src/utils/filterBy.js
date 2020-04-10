@@ -1,6 +1,6 @@
 const rawString = (str) => {
   let string = str;
-  if (!Number.isNaN) {
+  if (typeof str === 'number') {
     string = string.toLocaleString();
   }
   return string

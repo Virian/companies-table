@@ -73,7 +73,7 @@ describe('filter by', () => {
   });
 
   it('should find matches for numbers', () => {
-    expect.assertions(7);
+    expect.assertions(6);
 
     const array = [
       { key: 123123 },
@@ -83,18 +83,16 @@ describe('filter by', () => {
       { key: 63462123 },
       { key: 5345 },
       { key: 44.123 },
-      { key: 55.031234555 },
     ];
 
     const result = filterBy(array, 123, ['key']);
 
-    expect(result).toHaveLength(6);
+    expect(result).toHaveLength(5);
     expect(result).toContainEqual({ key: 123123 });
     expect(result).toContainEqual({ key: 84237812345 });
     expect(result).toContainEqual({ key: 123634 });
     expect(result).toContainEqual({ key: 63462123 });
     expect(result).toContainEqual({ key: 44.123 });
-    expect(result).toContainEqual({ key: 55.031234555 });
   });
 
   it('should find matches case insensitive', () => {

@@ -9,11 +9,14 @@ const IconButton = ({
   disabled,
   onClick,
   onKeyPress,
+  ...rest
 }) => (
   <button
     className={classNames('IconButton', { 'IconButton-disabled': disabled })}
+    disabled={disabled}
     onClick={disabled ? null : onClick}
     onKeyPress={disabled ? null : onKeyPress}
+    {...rest}
   >
     <i className="material-icons IconButtonIcon">{name}</i>
   </button>
