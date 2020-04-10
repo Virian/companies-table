@@ -18,6 +18,6 @@ Loader.propTypes = {
 
 Loader.defaultProps = {
   size: 'medium',
-}
+};
 
 export default Loader;
