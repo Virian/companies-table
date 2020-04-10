@@ -4,10 +4,12 @@ import classNames from 'classnames';
 
 import './Table.scss';
 import formatCellContent from './formatCellContent';
+import Loader from '../Loader';
 
 const Table = ({
   data,
   columns,
+  isLoading,
   orderBy,
   orderDirection,
   onChangeOrder,
@@ -47,24 +49,37 @@ const Table = ({
         </tr>
       </thead>
       <tbody>
-        {data.map((row, index) => (
-          <tr
-            className="TableRow"
-            key={`row-${index}`}
-          >
-            {columns.map((column) => (
-              <td
-              className={classNames(
-                'TableCell',
-                `${column.align ? `TableCell-${column.align}` : ''}`,
-              )}
-                key={`row-${index}-${column.key}`}
-              >
-                {formatCellContent(row[column.prop])}
-              </td>
-            ))}
+        {isLoading ? (
+          <tr>
+            <td
+              className="TableLoading"
+              colSpan={columns.length}
+            >
+              <Loader size="medium" />
+            </td>
           </tr>
-        ))}
+        ) : (
+          <>
+            {data.map((row, index) => (
+              <tr
+                className="TableRow"
+                key={`row-${index}`}
+              >
+                {columns.map((column) => (
+                  <td
+                  className={classNames(
+                    'TableCell',
+                    `${column.align ? `TableCell-${column.align}` : ''}`,
+                  )}
+                    key={`row-${index}-${column.key}`}
+                  >
+                    {formatCellContent(row[column.prop])}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </>
+        )}
       </tbody>
     </table>
   </div>
@@ -82,6 +97,7 @@ Table.propTypes = {
       'right',
     ]),
   })),
+  isLoading: PropTypes.bool,
   orderBy: PropTypes.string,
   orderDirection: PropTypes.oneOf(['asc', 'desc']),
   onChangeOrder: PropTypes.func,
@@ -90,6 +106,7 @@ Table.propTypes = {
 Table.defaultProps = {
   data: [],
   columns: [],
+  isLoading: false,
   orderBy: null,
   orderDirection: 'asc',
   onChangeOrder: () => {},

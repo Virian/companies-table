@@ -21,6 +21,7 @@ import getIncomeById from '../../api/incomes/getById';
 const CompaniesScreen = () => {
   const [companies, setCompanies] = useState([]);
   const [search, setSearch] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   const debouncedSearch = useDebounce(search, 400);
 
   const [orderBy, setOrderBy] = useState(null);
@@ -30,6 +31,7 @@ const CompaniesScreen = () => {
 
   useEffect(() => {
     const getCompaniesData = async () => {
+      setIsLoading(true);
       let { data } = await getAllCompanies();
       data = await Promise.all(data.map(async ({ id, ...rest }) => {
         const { data: { incomes } } = await getIncomeById(id);
@@ -45,6 +47,7 @@ const CompaniesScreen = () => {
           lastMonthIncome,
         };
       }));
+      setIsLoading(false);
       setCompanies(data);
     };
 
@@ -92,6 +95,7 @@ const CompaniesScreen = () => {
       <Table
         data={visibleCompanies}
         columns={columns}
+        isLoading={isLoading}
         orderBy={orderBy}
         orderDirection={orderDirection}
         onChangeOrder={handleChangeOrder}
